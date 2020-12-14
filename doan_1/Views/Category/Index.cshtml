@@ -1,0 +1,40 @@
+﻿@model IEnumerable<doan_1.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("SearchLoaiSach", "Category", new { @class = "search_bar" }))
+    {
+<input class="input_text" type="text" placeholder="Tìm kiếm sách..." name="loaiSach">
+<input class="input_btn" type="submit" value="Tìm" />
+    }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CateName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CateName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CateID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CateID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CateID })
+            </td>
+        </tr>
+    }
+
+</table>

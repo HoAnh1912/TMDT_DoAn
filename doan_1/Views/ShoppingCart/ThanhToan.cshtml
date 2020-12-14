@@ -1,0 +1,86 @@
+﻿@model doan_1.Models.Cart
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Hình ảnh
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Tổng
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                double total = Convert.ToDouble(item._shopping_product.BookPrice * item._shopping_quantity);
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item._shopping_product.BookName)
+                    </td>
+                    <td>
+                        <img src="@Url.Content(item._shopping_product.Image)" style="width:40px; height:40px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item._shopping_product.BookPrice)&#36;
+                    </td>
+                    <td>
+                        <input type="number" disabled value="@item._shopping_quantity" name="Quantity" style="outline:none;border:none;" />
+                    </td>
+                    <td>
+                        @total.ToString("N0")&#36;
+
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    Tổng cộng: @Model.Total_Money().ToString("N0")&#36;
+                </td>
+                <td colspan="5">
+                    <form action="~/ShoppingCart/CheckOut" method="post">
+                        <label for="fname">Email:</label><br>
+                        <input type="text" id="email" name="email"><br>
+                        <label for="lname">Dia Chi:</label><br>
+                        <input type="text" id="diachi" name="diachi"><br>
+                        <label for="fname">SDT:</label><br>
+                        <input type="text" id="sdt" name="sdt"><br>
+                        <input type="submit" value="Thanh Toan">
+                    </form>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+    <div>
+        <a href=" @Url.Action( "PaymentWithPaypal", "Paypal")" class = "btn btn-primary">Thanh toán bằng Tài khoản PayPal</a>
+       <a href="/" class="btn btn-sm btn-default" style=" float:right "><<<  Back to Home</a>
+    </div>
+   
+}
+else
+{
+    < div > @ViewBag.nullCart </ div >
+}
+

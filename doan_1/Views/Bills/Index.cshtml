@@ -1,0 +1,46 @@
+﻿@model IEnumerable<doan_1.Models.Bill>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Order.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongHoaDon)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongHoaDon)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaBill }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaBill }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaBill })
+        </td>
+    </tr>
+}
+
+</table>
